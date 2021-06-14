@@ -110,7 +110,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
 	console.log('deserializeUser')
-	User.findById(id, (err, result) => {
+	User.findById({_id: id}, (err, result) => {
 		if(err) {
 			console.log(err);
 		} else {
