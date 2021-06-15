@@ -4,11 +4,11 @@ const UsersSchema = new mongoose.Schema({
     googleid: {
       type: String,
       required: false,
-      unique: true
     },
     username: {
       type: String,
       required: true,
+      unique: true
     },
     password: {
       type: String,
