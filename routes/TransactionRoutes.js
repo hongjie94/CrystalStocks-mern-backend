@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => res.status(200).send('Hello World'));
 
-router.post('/stocks/buy', (req, res) => {
+router.post('/stock/buy', (req, res) => {
    const newTransactions = req.body;
 	 transactions.create(newTransactions, (err, data) => {
 		if(err) {
@@ -44,7 +44,7 @@ router.get('/stock/sync', (req, res) => {
 	 });
 });
 
-router.post('/stock/update', (req, res) => {
+router.post('/stock/sell', (req, res) => {
 	const newShares = req.body.newShares;
 	const newPrice = req.body.newPrice;
 	const user_id = req.body.user_id;

@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 // App Config
 const router = express.Router();
 
-// Login with Google
+// Google Login
 router.get('/google',
 	passport.authenticate('google', { scope: [ 'email', 'profile'] }));
 		
@@ -22,7 +22,6 @@ router.post("/register", (req, res) => {
     if (err) throw err;
     if (user) res.send("Username already exists.");
     if (!user) {
-
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const newUser = new User({
         username: req.body.username,
@@ -32,11 +31,20 @@ router.post("/register", (req, res) => {
         googleid: req.body.username
       });
       await newUser.save();
-      res.send("ok");
+      const sendData = {
+        id: newUser._id,
+        username: newUser.username,
+        profilePicture: newUser.profilePicture,
+        email: newUser.email,
+        cash: newUser.cash,
+        watchlist: newUser.watchlist
+      }
+      res.send(sendData);
     }
   });
 });
 
+// Local Login
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
@@ -79,5 +87,20 @@ router.get("/getuser", (req, res) => {
   }	
 });
 
+// Add user watchlist
+router.post("/update_watchlist", (req, res) => {
+  User.findOneAndUpdate({ _id: req.body.id }, 
+    { watchlist: req.body.watchlist},
+    async (err, user) => {
+    if (err) throw err;
+    if (user){
+      res.send('ok');
+    }
+  });
+});
+
+// Update user cash
+router.post("/update_cash", (req, res) => {
+});
 
 export default router;

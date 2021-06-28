@@ -1,4 +1,4 @@
-// importing
+// -------------------- importing --------------------
 import express from 'express';
 import cookieSession from 'cookie-session';
 import cors from 'cors';
@@ -17,7 +17,7 @@ import TransactionRoutes from './routes/TransactionRoutes.js';
 import User from './models/User.js';
 
 
-// App Config
+// -------------------- App Config --------------------
 const app = express();
 dotenv.config();
 const pusher = new Pusher({
@@ -28,7 +28,7 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-// Middleware
+// -------------------- Middleware --------------------
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(helmet());
@@ -36,22 +36,18 @@ app.use(morgan("dev"));
 app.use(cookieSession({
   keys: ['key1', 'key2']
 }));
+
 app.use(
 session({
-    secret: "anything",
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      sameSite: "none",
-      secure: true,
-			maxAge: 24 * 60 * 60 * 1000, // One Day
-    }
-	}));
-
-// Initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
-
+	secret: "anything",
+	resave: true,
+	saveUninitialized: true,
+	cookie: {
+		sameSite: "none",
+		secure: true,
+		maxAge: 24 * 60 * 60 * 1000, // One Day
+	}
+}));
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
 	res.header('Access-Control-Allow-Credentials', true);
@@ -60,7 +56,14 @@ app.use((req, res, next) => {
 	next();
 });
 
-// Oauth with googlr strategy
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// -------------------- Oauth --------------------
+
+// Oauth with google strategy 
 passport.use(new GoogleStrategy({
 	clientID: process.env.GOOGLE_CLIENT_ID,
 	clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -103,7 +106,6 @@ passport.use(
 	})
 );
 
-// Oauth
 passport.serializeUser((user, done) => {
 	return done(null, user._id);
 });
@@ -119,11 +121,13 @@ passport.deserializeUser((id, done) => {
 	});
 });
 
-// DB Config
+
+// -------------------- DB Config --------------------
 mongoose.connect(process.env.MONGO_URL, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+		useUnifiedTopology: true,
+		useFindAndModify: true 
 });
 
 const transCollection = mongoose.connection.collection("transactions");
@@ -131,6 +135,7 @@ const transCollection = mongoose.connection.collection("transactions");
 mongoose.connection.once('open', () => {
 	console.log("Connected to MongoDB!");
 
+	// Runing pusher
 	const changeStream = transCollection.watch();
 
 	changeStream.on("change", (change) => {
@@ -152,17 +157,14 @@ mongoose.connection.once('open', () => {
 	console.log(`Connection error: ${error}`);
 });
 
-// Oauth with google strategy
 
-
-//API Routes
+//-------------------- API Routes --------------------
 
 app.use('/api', TransactionRoutes);
 app.use('/auth', AuthRoutes);
 
-// app.use(UserRoutes);
 
-// Listener
+//-------------------- Listener --------------------
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Backend server is running on: http://localhost:${port}`);
