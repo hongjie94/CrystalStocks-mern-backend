@@ -3,7 +3,7 @@ import express from 'express';
 import cookieSession from 'cookie-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import Pusher from 'pusher'
+// import Pusher from 'pusher';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
@@ -20,7 +20,6 @@ import User from './models/User.js';
 // -------------------- App Config --------------------
 const app = express();
 dotenv.config();
-
 // const pusher = new Pusher({
 //   appId: process.env.PUSHER_ID,
 //   key: process.env.PUSHER_KEY,
