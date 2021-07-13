@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "heroku-prebuild": "npm install"
+    "heroku-prebuild": "yarn install"
   },
   "author": "",
   "license": "ISC",
