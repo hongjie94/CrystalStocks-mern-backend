@@ -1,16 +1,8 @@
 import mongoose from 'mongoose';
 
 const StockTransactionsSchema = new mongoose.Schema({
-  user_id: {
-    type: String,
-    unique: true
-  },
-  symbol: {
-    type: String,
-    unique: true
-  },
-  shares: Number,
-  price: Number
-}, {timestamps: true});
+  user_id: String,
+  stocks: Array
+});
 
 export default mongoose.model('transactions', StockTransactionsSchema);

@@ -3,7 +3,7 @@ import express from 'express';
 import cookieSession from 'cookie-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import Pusher from 'pusher'
+// import Pusher from 'pusher'
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
@@ -20,13 +20,14 @@ import User from './models/User.js';
 // -------------------- App Config --------------------
 const app = express();
 dotenv.config();
-const pusher = new Pusher({
-  appId: process.env.PUSHER_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: process.env.PUSHER_CLUSTER,
-  useTLS: true
-});
+
+// const pusher = new Pusher({
+//   appId: process.env.PUSHER_ID,
+//   key: process.env.PUSHER_KEY,
+//   secret: process.env.PUSHER_SECRET,
+//   cluster: process.env.PUSHER_CLUSTER,
+//   useTLS: true
+// });
 
 // -------------------- Middleware --------------------
 app.use(express.json());
@@ -48,13 +49,7 @@ session({
 		maxAge: 24 * 60 * 60 * 1000, // One Day
 	}
 }));
-app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-	res.header('Access-Control-Allow-Credentials', true);
-	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type, x-requested-with');
-	next();
-});
+
 
 // Initialize passport
 app.use(passport.initialize());
@@ -130,29 +125,34 @@ mongoose.connect(process.env.MONGO_URL, {
 		useFindAndModify: true 
 });
 
-const transCollection = mongoose.connection.collection("transactions");
+// const transCollection = mongoose.connection.collection("transactions");
 
 mongoose.connection.once('open', () => {
 	console.log("Connected to MongoDB!");
+	//Runing pusher
+	// const changeStream = transCollection.watch();
 
-	// Runing pusher
-	const changeStream = transCollection.watch();
+	// changeStream.on("change", (change) => {
+	// 	console.log("data change", change);
+	// 	if (change.operationType === "insert") {
 
-	changeStream.on("change", (change) => {
-		console.log("data change", change);
-		if (change.operationType === "insert" || change.operationType === "update") {
-			const transDetails = change.fullDocument;
-				pusher.trigger("transactions", "changed", {
-					user_id: transDetails._id,
-					symbol: transDetails.symbol,
-					shares: transDetails.shares,
-					price: transDetails.price,
-					timestamp: transDetails.timestamp
-			});
-		} else {
-			console.log("Pusher Error!");
-		}
-	});
+	// 		console.log("Pusher insert!");
+			
+	// 		pusher.trigger("transactions", "inserted", {
+	// 			_id: change.fullDocument._id,
+	// 			user_id: change.fullDocument.user_id,
+	// 			stocks: change.fullDocument.stocks
+	// 		});
+	//  	}else if( change.operationType === "update") {
+	// 		console.log("Pusher update!");
+
+	// 		pusher.trigger("transactions", "updated", {
+	// 			stocks: change.updateDescription.updatedFields.stocks
+	// 		});
+	// 	}else {
+	// 		console.log("Pusher Error!");
+	// 	}
+	// });
 }).on('error', (error) => {
 	console.log(`Connection error: ${error}`);
 });

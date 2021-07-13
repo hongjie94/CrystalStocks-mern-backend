@@ -87,7 +87,7 @@ router.get("/getuser", (req, res) => {
   }	
 });
 
-// Add user watchlist
+// Update user watchlist
 router.post("/update_watchlist", (req, res) => {
   User.findOneAndUpdate({ _id: req.body.id }, 
     { watchlist: req.body.watchlist},
@@ -99,8 +99,28 @@ router.post("/update_watchlist", (req, res) => {
   });
 });
 
+// Update user profile picture
+router.post("/update_profileURL", (req, res) => {
+  User.findOneAndUpdate({ _id: req.body.id }, 
+    { profilePicture: req.body.profilePicture},
+    async (err, user) => {
+    if (err) throw err;
+    if (user){
+      res.send('ok');
+    }
+  });
+});
+
 // Update user cash
 router.post("/update_cash", (req, res) => {
+  User.findOneAndUpdate({ _id: req.body.id }, 
+    { cash: req.body.updatedCash},
+    async (err, user) => {
+    if (err) throw err;
+    if (user){
+      res.send('ok');
+    }
+  });
 });
 
 export default router;
