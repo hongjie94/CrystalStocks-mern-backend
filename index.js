@@ -118,7 +118,7 @@ mongoose.connection.once('open', () => {
 
 
 //-------------------- API Routes --------------------
-app.get('/', (req, res) => { res.send("Hello World"); });
+app.get('/', (req, res) => { res.send("Crystal Stocks Backend"); });
 app.use('/api', TransactionRoutes);
 app.use('/auth', AuthRoutes);
 
