@@ -33,21 +33,25 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(helmet());
 app.use(morgan("dev"));
+app.set('trust proxy', 1); 
+
 app.use(cookieSession({
+  name: 'session',
   keys: ['key1', 'key2']
 }));
 
 app.use(
-session({
-	secret: "anything",
-	resave: true,
-	saveUninitialized: true,
-	cookie: {
-		sameSite: "none",
-		secure: true,
-		maxAge: 24 * 60 * 60 * 1000, // One Day
-	}
-}));
+	session({
+		secret: "anything",
+		resave: true,
+		saveUninitialized: true,
+		cookie: {
+			sameSite: "none",
+			secure: true,
+			maxAge: 24 * 60 * 60 * 1000, // One Day
+		}
+	})
+);
 
 
 // Initialize passport
@@ -167,5 +171,5 @@ app.use('/auth', AuthRoutes);
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
+  console.log(`Server listening on http://localhost:${PORT}`)
 });
