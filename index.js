@@ -33,11 +33,13 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(helmet());
 app.use(morgan("dev"));
+
+app.set('trust proxy', 1); 
+
 app.use(cookieSession({
+  name: 'session',
   keys: ['key1', 'key2']
 }));
-
-app.set("trust proxy", 1);
 
 app.use(
 session({
