@@ -36,10 +36,10 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.set('trust proxy', 1); 
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}));
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2']
+// }));
 
 app.use(
 session({
@@ -55,9 +55,8 @@ session({
 
 
 // Initialize passport
-app.use(passport.session());
 app.use(passport.initialize());
-
+app.use(passport.session());
 
 
 // -------------------- Oauth --------------------
