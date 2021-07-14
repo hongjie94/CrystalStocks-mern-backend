@@ -2,7 +2,6 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import Pusher from 'pusher';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
@@ -26,16 +25,16 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.set('trust proxy', 1); 
 
 app.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
+	session({
+		secret: "secretcode",
+		resave: true,
+		saveUninitialized: true,
     cookie: {
       sameSite: "none",
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
     }
-  }))
+}))
 
 // Initialize passport
 app.use(passport.initialize());
