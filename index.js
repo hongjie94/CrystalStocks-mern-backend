@@ -164,7 +164,8 @@ app.use('/auth', AuthRoutes);
 
 
 //-------------------- Listener --------------------
+const PORT = process.env.PORT || 4000;
 
-app.listen(process.env.PORT || 4000, () => {
-  console.log("Backend server is now running!");
-})
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+});
