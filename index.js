@@ -4,9 +4,9 @@ import cookieSession from 'cookie-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
 // import Pusher from 'pusher';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import mongoose from 'mongoose';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
@@ -31,8 +31,8 @@ dotenv.config();
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(helmet());
-app.use(morgan("dev"));
+// app.use(helmet());
+// app.use(morgan("dev"));
 
 app.set('trust proxy', 1); 
 
@@ -55,8 +55,9 @@ session({
 
 
 // Initialize passport
-app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.initialize());
+
 
 
 // -------------------- Oauth --------------------
