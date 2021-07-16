@@ -20,7 +20,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors({ origin: 'https://nifty-goldberg-c7ab73.netlify.app', credentials: true }));
 app.set('trust proxy', 1); 
-;
+
 app.use(
 	session({
 		secret: "anything",
