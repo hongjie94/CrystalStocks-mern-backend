@@ -34,6 +34,17 @@ app.use(
 	})
 );
 
+app.use(
+	session({
+		secret: "secretcode",
+		resave: true,
+		saveUninitialized: true,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
+    }
+}))
 
 // Initialize passport
 app.use(passport.initialize());
@@ -105,11 +116,9 @@ passport.deserializeUser((id, done) => {
 mongoose.connect(process.env.MONGO_URL, {
     useCreateIndex: true,
     useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: true 
+    useUnifiedTopology: true,
+    useFindAndModify: true 
 });
-
-// const transCollection = mongoose.connection.collection("transactions");
 
 mongoose.connection.once('open', () => {
 	console.log("Connected to MongoDB!");
@@ -119,7 +128,7 @@ mongoose.connection.once('open', () => {
 
 
 //-------------------- API Routes --------------------
-app.get('/', (req, res) => { res.send("Hello World"); });
+app.get('/', (req, res) => { res.send("Crystal Stocks Backend"); });
 app.use('/api', TransactionRoutes);
 app.use('/auth', AuthRoutes);
 
