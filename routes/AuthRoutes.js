@@ -13,7 +13,7 @@ router.get('/google',
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: '/', session: true }),
   (req, res) =>{
-    res.redirect('https://nifty-goldberg-c7ab73.netlify.app/holdings');
+    res.redirect('https://nifty-goldberg-c7ab73.netlify.app');
 });
 
 // Register user 
