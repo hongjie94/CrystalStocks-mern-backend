@@ -25,16 +25,15 @@ app.set('trust proxy', 1);
 
 app.use(
 	session({
-		secret: "anything",
+		secret: "secretcode",
 		resave: true,
 		saveUninitialized: true,
-		cookie: {
-			sameSite: "none",
-			secure: true,
-			maxAge: 24 * 60 * 60 * 1000, // One Day
-		}
-	})
-);
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
+    }
+}))
 
 // Initialize passport
 app.use(passport.initialize());
