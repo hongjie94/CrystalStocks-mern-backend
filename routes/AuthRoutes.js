@@ -11,9 +11,9 @@ router.get('/google',
 	passport.authenticate('google', { scope: [ 'email', 'profile'] }));
 		
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'https://nifty-goldberg-c7ab73.netlify.app/login', session: true }),
+  passport.authenticate('google', { failureRedirect: 'https://crystalstocks.netlify.app/login', session: true }),
   (req, res) =>{
-    res.redirect('https://nifty-goldberg-c7ab73.netlify.app');
+    res.redirect('https://crystalstocks.netlify.app');
 });
 
 // Register user 

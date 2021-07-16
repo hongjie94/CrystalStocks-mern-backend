@@ -20,12 +20,13 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(cors({ origin: 'https://nifty-goldberg-c7ab73.netlify.app', credentials: true }));
+app.use(cors({ origin: 'https://crystalstocks.netlify.app', credentials: true }));
+
 app.set('trust proxy', 1); 
 
 app.use(
 	session({
-		secret: "secretcode",
+		secret: "anything",
 		resave: true,
 		saveUninitialized: true,
     cookie: {
@@ -33,7 +34,7 @@ app.use(
       secure: true,
       maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
     }
-}))
+}));
 
 // Initialize passport
 app.use(passport.initialize());
