@@ -20,7 +20,7 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'https://nifty-goldberg-c7ab73.netlify.app', credentials: true }));
 
 app.set('trust proxy', 1); 
 
