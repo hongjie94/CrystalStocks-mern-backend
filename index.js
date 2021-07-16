@@ -16,6 +16,8 @@ import User from './models/User.js';
 // -------------------- App Config --------------------
 const app = express();
 dotenv.config();
+
+
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(cors({ origin: 'https://nifty-goldberg-c7ab73.netlify.app', credentials: true }));
