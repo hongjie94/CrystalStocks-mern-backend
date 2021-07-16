@@ -1,12 +1,8 @@
 // -------------------- importing --------------------
 import express from 'express';
-// import cookieSession from 'cookie-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import Pusher from 'pusher';
-import helmet from 'helmet';
 import mongoose from 'mongoose';
-// import morgan from 'morgan';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
@@ -20,26 +16,11 @@ import User from './models/User.js';
 // -------------------- App Config --------------------
 const app = express();
 dotenv.config();
-// const pusher = new Pusher({
-//   appId: process.env.PUSHER_ID,
-//   key: process.env.PUSHER_KEY,
-//   secret: process.env.PUSHER_SECRET,
-//   cluster: process.env.PUSHER_CLUSTER,
-//   useTLS: true
-// });
-
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-// app.use(helmet());
-// app.use(morgan("dev"));
+app.use(cors({ origin: 'https://nifty-goldberg-c7ab73.netlify.app', credentials: true }));
 app.set('trust proxy', 1); 
-
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['key1', 'key2']
-// }));
-
+;
 app.use(
 	session({
 		secret: "anything",
@@ -132,30 +113,6 @@ mongoose.connect(process.env.MONGO_URL, {
 
 mongoose.connection.once('open', () => {
 	console.log("Connected to MongoDB!");
-	//Runing pusher
-	// const changeStream = transCollection.watch();
-
-	// changeStream.on("change", (change) => {
-	// 	console.log("data change", change);
-	// 	if (change.operationType === "insert") {
-
-	// 		console.log("Pusher insert!");
-			
-	// 		pusher.trigger("transactions", "inserted", {
-	// 			_id: change.fullDocument._id,
-	// 			user_id: change.fullDocument.user_id,
-	// 			stocks: change.fullDocument.stocks
-	// 		});
-	//  	}else if( change.operationType === "update") {
-	// 		console.log("Pusher update!");
-
-	// 		pusher.trigger("transactions", "updated", {
-	// 			stocks: change.updateDescription.updatedFields.stocks
-	// 		});
-	// 	}else {
-	// 		console.log("Pusher Error!");
-	// 	}
-	// });
 }).on('error', (error) => {
 	console.log(`Connection error: ${error}`);
 });
