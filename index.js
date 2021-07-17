@@ -45,6 +45,23 @@ app.use(passport.session());
 
 // -------------------- Oauth --------------------
 
+// Serialize User
+passport.serializeUser((user, done) => {
+	return done(null, user._id);
+});
+
+// Deserialize User
+passport.deserializeUser((id, done) => {
+	console.log('deserializeUser')
+	User.findById({_id: id}, (err, result) => {
+		if(err) {
+			console.log(err);
+		} else {
+			return done(null, result);
+		}
+	});
+});
+
 // Oauth with google strategy 
 passport.use(new GoogleStrategy({
 	clientID: process.env.GOOGLE_CLIENT_ID,
@@ -88,20 +105,6 @@ passport.use(
 	})
 );
 
-passport.serializeUser((user, done) => {
-	return done(null, user._id);
-});
-
-passport.deserializeUser((id, done) => {
-	console.log('deserializeUser')
-	User.findById({_id: id}, (err, result) => {
-		if(err) {
-			console.log(err);
-		} else {
-			return done(null, result);
-		}
-	});
-});
 
 
 // -------------------- DB Config --------------------
