@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
-import cookieSession from 'cookie-session';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
