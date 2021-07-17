@@ -83,7 +83,9 @@ router.get("/getuser", (req, res) => {
       email: req.user.email,
       cash: req.user.cash,
       watchlist: req.user.watchlist
-      res.send(sendData);	
+    }	    
+	    
+     res.send(sendData);	
 });
 
 // Update user watchlist
