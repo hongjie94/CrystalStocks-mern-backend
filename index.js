@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import cookieSession from 'cookie-session';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
@@ -35,6 +36,13 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
     }
 }));
+
+app.use(cookieSession({
+	name: 'session',
+	maxAge: 24 * 60 * 60 * 1000, // One Day
+  keys: ['key1', 'key2']
+}));
+
 
 // Initialize passport
 app.use(passport.initialize());
