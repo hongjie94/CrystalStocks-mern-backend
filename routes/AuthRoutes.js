@@ -13,7 +13,7 @@ router.get('/google',
 router.get('/google/callback', 
   passport.authenticate('google', { failureRedirect: 'https://crystalstocks.netlify.app/login', session: true }),
   (req, res) =>{
-    res.redirect('https://crystalstocks.netlify.app');
+    res.redirect('https://crystalstocks.netlify.app/holdings');
 });
 
 // Register user 
@@ -74,7 +74,6 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
-  if(req.user) {
     const sendData = {
       id: req.user._id,
       username: req.user.username,
@@ -83,8 +82,7 @@ router.get("/getuser", (req, res) => {
       cash: req.user.cash,
       watchlist: req.user.watchlist
     }
-    res.send(sendData);
-  }	
+    res.send(sendData);	
 });
 
 // Update user watchlist
