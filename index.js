@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-// import session from 'express-session';
+import session from 'express-session';
 import cookieSession from 'cookie-session';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
@@ -22,32 +22,20 @@ dotenv.config();
 // -------------------- Middleware --------------------
 app.use(express.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://crystalstocks.netlify.app"); 
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 app.use(cors({ origin: 'https://crystalstocks.netlify.app', credentials: true }));
 
 app.set('trust proxy', 1); 
 
-// app.use(
-// 	session({
-// 		secret: "anything",
-// 		resave: true,
-// 		saveUninitialized: true,
-//     cookie: {
-//       sameSite: "none",
-//       secure: true,
-//       maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
-//     }
-// }));
-
-app.use(cookieSession({
-	name: 'session',
-	maxAge: 24 * 60 * 60 * 1000, // One Day
-  keys: ['key1', 'key2']
+app.use(
+	session({
+		secret: "anything",
+		resave: true,
+		saveUninitialized: true,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
+    }
 }));
 
 
