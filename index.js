@@ -20,7 +20,7 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app/'], credentials: true }));
+app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app'], credentials: true }));
 
 app.set('trust proxy', 1); 
 
