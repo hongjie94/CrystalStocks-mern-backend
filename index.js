@@ -40,6 +40,7 @@ app.use(cookieSession({
 }));
 
 app.use(cookieParser('secretcode'));
+
 app.use(
 	session({
 		secret: "secretcode",

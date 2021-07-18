@@ -87,7 +87,6 @@ router.get("/getuser", (req, res) => {
     }
     return res.send(sendData);
   }
-  return res.status(500).send(err);
 });
 
 // Update user watchlist
