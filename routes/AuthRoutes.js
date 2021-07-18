@@ -74,8 +74,6 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
-  console.log('req', req)
-  console.log('user', user)
     const sendData = {
       id: req.user._id,
       username: req.user.username,
@@ -83,8 +81,7 @@ router.get("/getuser", (req, res) => {
       email: req.user.email,
       cash: req.user.cash,
       watchlist: req.user.watchlist
-    }	    
-	    
+    }	        
      res.send(sendData);	
 });
 
