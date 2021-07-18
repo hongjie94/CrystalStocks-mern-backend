@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
@@ -20,6 +22,8 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
+app.use(express.cookieParser());
+app.use(express.bodyParser());
 
 app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app', 'http://localhost:3000'], credentials: true }));
 
