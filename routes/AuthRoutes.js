@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
       });
       await newUser.save();
       const sendData = {
-        id: newUser._id,
+        id: newUser.id,
         username: newUser.username,
         profilePicture: newUser.profilePicture,
         email: newUser.email,
@@ -75,7 +75,7 @@ router.get("/logout", (req, res) => {
 // Get user data
 router.get("/getuser", (req, res) => {
     const sendData = {
-      id: req.user._id,
+      id: req.user.id,
       username: req.user.username,
       profilePicture: req.user.profilePicture,
       email: req.user.email,
