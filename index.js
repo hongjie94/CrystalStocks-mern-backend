@@ -24,7 +24,7 @@ dotenv.config();
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app', 'http://localhost:3000'], credentials: true }));
 
@@ -54,22 +54,6 @@ app.use(passport.session());
 
 // -------------------- Oauth --------------------
 
-// Serialize User
-passport.serializeUser((user, done) => {
-	return done(null, user._id);
-});
-
-// Deserialize User
-passport.deserializeUser((id, done) => {
-	console.log('deserializeUser')
-	User.findById({_id: id}, (err, result) => {
-		if(err) {
-			console.log(err);
-		} else {
-			return done(null, result);
-		}
-	});
-});
 
 // Oauth with google strategy 
 passport.use(new GoogleStrategy({
@@ -114,6 +98,22 @@ passport.use(
 	})
 );
 
+// Serialize User
+passport.serializeUser((user, done) => {
+	return done(null, user._id);
+});
+
+// Deserialize User
+passport.deserializeUser((id, done) => {
+	console.log('deserializeUser')
+	User.findById({_id: id}, (err, result) => {
+		if(err) {
+			console.log(err);
+		} else {
+			return done(null, result);
+		}
+	});
+});
 
 
 // -------------------- DB Config --------------------
