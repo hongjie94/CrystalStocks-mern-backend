@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
       });
       await newUser.save();
       const sendData = {
-        id: newUser._id,
+        id: newUser.id,
         username: newUser.username,
         profilePicture: newUser.profilePicture,
         email: newUser.email,

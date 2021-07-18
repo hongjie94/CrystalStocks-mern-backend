@@ -58,6 +58,7 @@ app.use(passport.session());
 
 // -------------------- Oauth --------------------
 
+
 // Oauth with google strategy 
 passport.use(new GoogleStrategy({
 	clientID: process.env.GOOGLE_CLIENT_ID,
@@ -102,11 +103,13 @@ passport.use(
 	})
 );
 
+// Serialize User
 passport.serializeUser((user, done) => {
 	console.log('serializeUser', user);
 	done(null, user.id);
 });
 
+// Deserialize User
 passport.deserializeUser((id, done) => {
 	console.log('deserializeUser', id);
 	
