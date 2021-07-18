@@ -74,15 +74,15 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
-    const sendData = {
-      id: req.user.id,
-      username: req.user.username,
-      profilePicture: req.user.profilePicture,
-      email: req.user.email,
-      cash: req.user.cash,
-      watchlist: req.user.watchlist
-    }	        
-     res.send(sendData);	
+//     const sendData = {
+//       id: req.user.id,
+//       username: req.user.username,
+//       profilePicture: req.user.profilePicture,
+//       email: req.user.email,
+//       cash: req.user.cash,
+//       watchlist: req.user.watchlist
+//     }	        
+     res.send(req.user);	
 });
 
 // Update user watchlist
