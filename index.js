@@ -23,8 +23,8 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(express.cookieParser());
-app.use(express.bodyParser());
+app.use(cookieParser());
+app.use(bodyParser());
 
 app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app', 'http://localhost:3000'], credentials: true }));
 
