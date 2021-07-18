@@ -3,17 +3,18 @@ import passport from 'passport';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 
+const app = express();
+app.use(passport.session());
 // App Config
 const router = express.Router();
 
 // Google Login
-router.get('/google',
-	passport.authenticate('google', { scope: [ 'email', 'profile'] }));
+router.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile'] }));
 		
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'https://crystalstocks.netlify.app/login', session: true }),
+  passport.authenticate('google', { failureRedirect: 'https://localhost:3000', session: true }),
   (req, res) =>{
-    res.redirect('https://crystalstocks.netlify.app');
+    res.redirect('https://localhost:3000');
 });
 
 // Register user 
@@ -46,21 +47,22 @@ router.post("/register", (req, res) => {
 
 // Local Login
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", (err, user) => {
+
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
-        if (err) throw err;
         const sendData = {
-          id: user._id,
+          id: user.id,
           username: user.username,
           profilePicture: user.profilePicture,
           email: user.email,
           cash: user.cash,
           watchlist: user.watchlist
-        }
+        };
         res.send(sendData);
+        if (err) throw err;
       });
     }
   })(req, res, next);
@@ -74,7 +76,7 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
-  if(req.user) {
+  if (req.user) {
     const sendData = {
       id: req.user._id,
       username: req.user.username,
@@ -83,8 +85,9 @@ router.get("/getuser", (req, res) => {
       cash: req.user.cash,
       watchlist: req.user.watchlist
     }
-    res.send(sendData);
-  }	
+    return res.send(sendData);
+  }
+  return res.status(500).send(err);
 });
 
 // Update user watchlist

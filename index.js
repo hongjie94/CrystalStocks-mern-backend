@@ -4,6 +4,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
@@ -20,25 +23,37 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app'], credentials: true }));
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(
+	cors({ 
+		origin:'http://localhost:3000', 
+		credentials: true 
+	})
+);
 
 app.set('trust proxy', 1); 
 
+app.use(cookieSession({
+  keys: ['key1', 'key2']
+}));
+
+app.use(cookieParser('secretcode'));
 app.use(
 	session({
-		secret: "anything",
+		secret: "secretcode",
 		resave: true,
 		saveUninitialized: true,
     cookie: {
-      sameSite: "none",
       secure: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
-    }
+      maxAge: 1000 * 60 * 60 * 24 // One Day
+		} 
 }));
 
-// Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 
 // -------------------- Oauth --------------------
@@ -62,11 +77,12 @@ passport.use(new GoogleStrategy({
 				profilePicture: profile._json.picture
 			});
 			await newUser.save();
-			done(null, newUser);
+			return done(null, newUser);
 		}
-		done(null, user);
+		return done(null, user);
 	});
 }));
+
 
 // Oauth with local strategy
 passport.use(
@@ -87,17 +103,15 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-	return done(null, user._id);
+	console.log('serializeUser', user);
+	done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-	console.log('deserializeUser')
-	User.findById({_id: id}, (err, result) => {
-		if(err) {
-			console.log(err);
-		} else {
-			return done(null, result);
-		}
+	console.log('deserializeUser', id);
+	
+	User.findById(id).then((user) => {
+		done(null, user);
 	});
 });
 
