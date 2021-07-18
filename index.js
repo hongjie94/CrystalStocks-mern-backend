@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
@@ -28,6 +29,10 @@ app.use(express.bodyParser());
 app.use(cors({ origin: ['https://crystalstocks.netlify.app', 'https://crystalstocks-react.web.app', 'http://localhost:3000'], credentials: true }));
 
 app.set('trust proxy', 1); 
+
+app.use(cookieSession({
+  keys: ['key1', 'key2']
+}));
 
 app.use(
 	session({
