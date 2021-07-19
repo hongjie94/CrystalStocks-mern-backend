@@ -12,9 +12,9 @@ const router = express.Router();
 router.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile'] }));
 		
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'https://localhost:3000', session: true }),
+  passport.authenticate('google', { failureRedirect: 'https://crystalstocks.netlify.app/login', session: true }),
   (req, res) =>{
-    res.redirect('https://localhost:3000');
+    res.redirect('https://crystalstocks.netlify.app/history');
 });
 
 // Register user 
@@ -40,7 +40,10 @@ router.post("/register", (req, res) => {
         cash: newUser.cash,
         watchlist: newUser.watchlist
       }
-      res.send(sendData);
+      req.logIn(sendData, (err) => {
+        res.send(sendData);
+        if (err) throw err;
+      });
     }
   });
 });
