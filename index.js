@@ -36,7 +36,8 @@ app.use(
 app.set('trust proxy', 1); 
 
 app.use(cookieSession({
-  keys: ['key1', 'key2']
+	keys: ['key1', 'key2'],
+	maxAge: 1000 * 60 * 60 * 24 * 7 // One Day
 }));
 
 app.use(cookieParser('secretcode'));
@@ -47,8 +48,7 @@ app.use(
 		resave: true,
 		saveUninitialized: true,
     cookie: {
-      secure: true,
-      maxAge: 1000 * 60 * 60 * 24 // One Day
+      secure: true
 		} 
 }));
 
