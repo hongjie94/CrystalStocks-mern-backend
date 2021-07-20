@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({ 
-		origin:'https://crystalstocks.netlify.app', 
+		// origin:'https://crystalstocks.netlify.app', 
+		origin:'http://localhost:3000', 
 		credentials: true 
 	})
 );
@@ -48,6 +49,7 @@ app.use(
 		resave: true,
 		saveUninitialized: true,
     cookie: {
+			sameSite: "none",
 			secure: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7 // One Day
 		} 
