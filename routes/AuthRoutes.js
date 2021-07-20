@@ -12,9 +12,9 @@ const router = express.Router();
 router.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile'] }));
 		
 router.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'https://crystalstocks.netlify.app/login', session: true }),
+  passport.authenticate('google', { failureRedirect: 'https://crystalstocks-react-ac962.web.app/login', session: true }),
   (req, res) =>{
-    res.redirect('https://crystalstocks.netlify.app/history');
+    res.redirect('https://crystalstocks-react-ac962.web.app/history');
 });
 
 // Register user 
