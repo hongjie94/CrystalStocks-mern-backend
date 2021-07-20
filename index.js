@@ -28,8 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({ 
-		origin:'https://crystalstocks-react-ac962.web.app', 
-		// origin:'https://crystalstocks.netlify.app', 
+		origin:'https://crystalstocks.netlify.app', 
 		// origin:'http://localhost:3000', 
 		credentials: true 
 	})
