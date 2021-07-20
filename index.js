@@ -28,8 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({ 
-		origin:'https://crystalstocks.netlify.app', 
-		// origin:'http://localhost:3000', 
+		origin:['https://crystalstocks.netlify.app', 'http://localhost:3000'], 
 		credentials: true 
 	})
 );
@@ -45,7 +44,6 @@ app.use(cookieSession({
 }));
 
 
-
 // app.use(
 // 	session({
 // 		secret: "secretcode",
@@ -54,7 +52,6 @@ app.use(cookieSession({
 //     cookie: {
 // 			sameSite: "none",
 // 			secure: true,
-		
 // 		} 
 // }));
 
