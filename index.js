@@ -36,8 +36,8 @@ app.use(
 app.set('trust proxy', 1); 
 
 app.use(cookieSession({
+	name: 'session',
 	keys: ['key1', 'key2'],
-	maxAge: 1000 * 60 * 60 * 24 * 7 // One Day
 }));
 
 app.use(cookieParser('secretcode'));
@@ -48,7 +48,8 @@ app.use(
 		resave: true,
 		saveUninitialized: true,
     cookie: {
-      secure: true
+			secure: true,
+			maxAge: 1000 * 60 * 60 * 24 * 7 // One Day
 		} 
 }));
 
@@ -106,13 +107,13 @@ passport.use(
 
 // Serialize User
 passport.serializeUser((user, done) => {
-	console.log('serializeUser', user);
+	console.log('serializeUser');
 	done(null, user.id);
 });
 
 // Deserialize User
 passport.deserializeUser((id, done) => {
-	console.log('deserializeUser', id);
+	console.log('deserializeUser');
 	
 	User.findById(id).then((user) => {
 		done(null, user);
