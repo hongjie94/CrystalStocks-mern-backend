@@ -36,6 +36,7 @@ app.use(
 
 app.set('trust proxy', 1); 
 
+app.use(cookieParser());
 app.use(cookieSession({
 	name: 'session',
 	keys: ['key1', 'key2'],
@@ -55,7 +56,11 @@ app.use(cookieSession({
 // 		} 
 // }));
 
+<<<<<<< HEAD
 app.use(cookieParser());
+=======
+// app.use(cookieParser('secretcode'));
+>>>>>>> 644866159864f12c20bea32e3c4e6636cd05fac0
 
 app.use(passport.initialize());
 app.use(passport.session());
