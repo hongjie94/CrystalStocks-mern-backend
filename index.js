@@ -28,32 +28,32 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({ 
-		origin:['https://crystalstocks.netlify.app', 'http://localhost:3000'], 
+		origin:'http://localhost:3000', 
 		credentials: true 
 	})
 );
 
 app.set('trust proxy', 1); 
 
-app.use(cookieParser());
-
 app.use(cookieSession({
 	name: 'session',
 	keys: ['key1', 'key2'],
-	maxAge: 1000 * 60 * 60 * 24 * 7 // One Week
+	maxAge: 1000 * 60 * 60 * 24  // One Day
 }));
 
+app.use(
+	session({
+		secret: "secretcode",
+		resave: false,
+		saveUninitialized: true,
+    cookie: {
+			sameSite: "none",
+			secure: false,
+			maxAge: 1000 * 60 * 60 * 24  // One Day
+		} 
+}));
 
-// app.use(
-// 	session({
-// 		secret: "secretcode",
-// 		resave: true,
-// 		saveUninitialized: true,
-//     cookie: {
-// 			sameSite: "none",
-// 			secure: true,
-// 		} 
-// }));
+app.use(cookieParser('secretcode'));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,7 +61,6 @@ app.use(passport.session());
 
 
 // -------------------- Oauth --------------------
-
 
 // Oauth with google strategy 
 passport.use(new GoogleStrategy({
@@ -116,12 +115,10 @@ passport.serializeUser((user, done) => {
 // Deserialize User
 passport.deserializeUser((id, done) => {
 	console.log('deserializeUser');
-	
 	User.findById(id).then((user) => {
 		done(null, user);
 	});
 });
-
 
 // -------------------- DB Config --------------------
 mongoose.connect(process.env.MONGO_URL, {

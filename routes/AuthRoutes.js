@@ -50,22 +50,13 @@ router.post("/register", (req, res) => {
 
 // Local Login
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user) => {
-
+  passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
-        const sendData = {
-          id: user.id,
-          username: user.username,
-          profilePicture: user.profilePicture,
-          email: user.email,
-          cash: user.cash,
-          watchlist: user.watchlist
-        };
-        res.send(sendData);
         if (err) throw err;
+        res.send("Successfully Authenticated");
       });
     }
   })(req, res, next);
@@ -79,6 +70,7 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
+  console.log(req.user);
   if (req.user) {
     const sendData = {
       id: req.user._id,
