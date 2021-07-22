@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
-import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
@@ -23,45 +22,27 @@ dotenv.config();
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(
 	cors({
 		origin:'https://crystalstocks.netlify.app', 
-		// // origin:'http://localhost:3000', 
 		credentials: true 
 	})
 );
-
-
 app.set('trust proxy', 1); 
-
-app.use(cookieSession({
-  name: 'session',
-	keys: ['key1', 'key2'],
-	sameSite: 'none',
-	secure: true,
-	maxAge: 1000 * 60 * 60 * 24  // One Day 
+app.use(
+	session({
+		secret: "secretcode",
+		resave: true,
+		saveUninitialized: true	,
+    cookie: {
+			sameSite: 'none',
+			secure: true,
+			maxAge: 1000 * 60 * 60 * 24  // One Day 
+		} 
 }));
-app.use(cookieParser());
-
-// app.use(
-// 	session({
-// 		secret: "secretcode",
-// 		resave: true,
-// 		saveUninitialized: true	,
-//     cookie: {
-// 			sameSite: 'none',
-// 			secure: true,
-// 			maxAge: 1000 * 60 * 60 * 24  // One Day 
-// 		} 
-// }));
-
-// app.use(cookieParser('secretcode'));
-
-
+app.use(cookieParser('secretcode'));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 // -------------------- Oauth --------------------
