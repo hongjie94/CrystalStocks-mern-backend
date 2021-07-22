@@ -39,7 +39,6 @@ app.use(
 		saveUninitialized: true,
 		store: MongoStore.create({ 
 			mongoUrl: process.env.MONGO_URL,
-			collectionName: 'AuthSessions',
 			ttl: 2 * 24 * 60 * 60 // = 2 days
 		}),
     cookie: {
