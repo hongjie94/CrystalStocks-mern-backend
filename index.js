@@ -40,7 +40,7 @@ app.set('trust proxy', 1);
 // 	secure: true,
 // 	maxAge: 1000 * 60 * 60 * 24  // One Day
 // }));
-app.use(cookieParser('CrystalStocks'));
+
 
 app.use(
 	session({
@@ -50,11 +50,12 @@ app.use(
     cookie: {
 			sameSite: 'none',
 			secure: true,
-    	maxAge: 1000 * 60 * 60 * 24  // One Day 
+			maxAge: 1000 * 60 * 60 * 24,  // One Day 
+			domain: 'crystalstocks.netlify.app' 
 		} 
 }));
 
-
+app.use(cookieParser('CrystalStocks'));
 
 app.use(passport.initialize());
 app.use(passport.session());
