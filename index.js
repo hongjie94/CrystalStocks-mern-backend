@@ -34,24 +34,24 @@ app.use(
 
 app.set('trust proxy', 1); 
 
-app.use(cookieSession({
-	name: 'session',
-	keys: ['key1', 'key2'],
-	secure: true,
-	maxAge: 1000 * 60 * 60 * 24  // One Day
-}));
-
-// app.use(
-// 	session({
-// 		secret: "session",
-// 		resave: false,
-// 		saveUninitialized: true,
-//     cookie: {
-// 			sameSite: "none",
-// 			secure: true,
-//     	maxAge: 60000  
-// 		} 
+// app.use(cookieSession({
+// 	name: 'session',
+// 	keys: ['key1', 'key2'],
+// 	secure: true,
+// 	maxAge: 1000 * 60 * 60 * 24  // One Day
 // }));
+
+app.use(
+	session({
+		secret: "session",
+		resave: false,
+		saveUninitialized: true,
+    cookie: {
+			sameSite: "none",
+			secure: true,
+    	maxAge: 1000 * 60 * 60 * 24  // One Day 
+		} 
+}));
 
 app.use(cookieParser('session'));
 
