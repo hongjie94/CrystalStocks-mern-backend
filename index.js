@@ -33,7 +33,8 @@ app.use(
 	session({
 		secret: "secretcode",
 		resave: true,
-		saveUninitialized: true	,
+		saveUninitialized: true,
+		rolling:'true',
     cookie: {
 			httpOnly: true,
 			sameSite: 'none',
