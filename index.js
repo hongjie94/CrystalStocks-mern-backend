@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
 	cors({
 		origin: /netlify\.app$/, 
-		"optionsSuccessStatus": 204,
 		// // origin:'http://localhost:3000', 
 		credentials: true 
 	})
@@ -48,7 +47,7 @@ app.use(
 		resave: true,
 		saveUninitialized: true	,
     cookie: {
-			sameSite: 'lax',
+			sameSite: false,
 			secure: true,
     	maxAge: 1000 * 60 * 60 * 24  // One Day 
 		} 
