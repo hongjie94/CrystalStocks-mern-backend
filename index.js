@@ -1,12 +1,12 @@
 // -------------------- importing --------------------
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
@@ -23,9 +23,9 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+
 app.use(
 	cors({ 
 		origin:'https://crystalstocks.netlify.app', 
@@ -50,7 +50,7 @@ app.use(
 		saveUninitialized: true,
     cookie: {
 			sameSite: "none",
-			secure: false,
+			secure: true,
 			maxAge: 1000 * 60 * 60 * 24  // One Day
 		} 
 }));
