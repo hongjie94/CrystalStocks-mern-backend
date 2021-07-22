@@ -29,13 +29,19 @@ app.use(
 		credentials: true 
 	})
 );
+
 app.set('trust proxy', 1); 
+
 app.use(
 	session({
 		secret: "secretcode",
 		resave: true,
 		saveUninitialized: true,
-		store: MongoStore.create({ mongoUrl: process.env.MONGO_URL}),
+		store: MongoStore.create({ 
+			mongoUrl: process.env.MONGO_URL,
+			collectionName: 'AuthSessions',
+			ttl: 2 * 24 * 60 * 60 // = 2 days
+		}),
     cookie: {
 			httpOnly: true,
 			sameSite: 'none',
