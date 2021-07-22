@@ -1,5 +1,6 @@
 // -------------------- importing --------------------
 import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
@@ -23,6 +24,8 @@ dotenv.config();
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(
 	cors({ 
 		origin:'https://crystalstocks.netlify.app', 
