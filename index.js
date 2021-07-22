@@ -34,26 +34,26 @@ app.use(
 
 app.set('trust proxy', 1); 
 
-// app.use(cookieSession({
-// 	name: 'session',
-// 	keys: ['key1', 'key2'],
-// 	secure: true,
-// 	maxAge: 1000 * 60 * 60 * 24  // One Day
-// }));
-
-app.use(
-	session({
-		secret: "session",
-		resave: false,
-		saveUninitialized: true,
-    cookie: {
-			sameSite: "none",
-			secure: true,
-    	maxAge: 1000 * 60 * 60 * 24  // One Day 
-		} 
+app.use(cookieSession({
+	name: 'session',
+	secret: "secretcode",
+	secure: true,
+	maxAge: 1000 * 60 * 60 * 24  // One Day
 }));
 
-app.use(cookieParser('session'));
+// app.use(
+// 	session({
+// 		secret: "secretcode",
+// 		resave: false,
+// 		saveUninitialized: true,
+//     cookie: {
+// 			sameSite: "none",
+// 			secure: true,
+//     	maxAge: 1000 * 60 * 60 * 24  // One Day 
+// 		} 
+// }));
+
+app.use(cookieParser('secretcode'));
 
 app.use(passport.initialize());
 app.use(passport.session());
