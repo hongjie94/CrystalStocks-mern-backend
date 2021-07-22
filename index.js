@@ -25,11 +25,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-	cors({ 
-		origin: /netlify\.app$/, 
-		// origin:'http://localhost:3000', 
-		credentials: true 
-	})
+	cors(
+		// origin: /netlify\.app$/, 
+		// // origin:'http://localhost:3000', 
+		// credentials: true 
+	)
 );
 
 app.set('trust proxy', 1); 
@@ -44,8 +44,8 @@ app.set('trust proxy', 1);
 app.use(
 	session({
 		secret: "secretcode",
-		resave: false,
-		saveUninitialized: false,
+		resave: true,
+		saveUninitialized: true	,
     cookie: {
 			sameSite: 'none',
 			secure: true,
