@@ -40,20 +40,21 @@ app.set('trust proxy', 1);
 // 	secure: true,
 // 	maxAge: 1000 * 60 * 60 * 24  // One Day
 // }));
+app.use(cookieParser('CrystalStocks'));
 
 app.use(
 	session({
-		secret: "secretcode",
+		secret: "CrystalStocks",
 		resave: true,
 		saveUninitialized: true	,
     cookie: {
-			sameSite: true,
+			sameSite: 'strict',
 			secure: true,
     	maxAge: 1000 * 60 * 60 * 24  // One Day 
 		} 
 }));
 
-app.use(cookieParser('secretcode'));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
