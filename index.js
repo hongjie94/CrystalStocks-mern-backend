@@ -25,11 +25,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
-	cors(
-		// origin: /netlify\.app$/, 
+	cors({
+		origin: /netlify\.app$/, 
+		"optionsSuccessStatus": 204,
 		// // origin:'http://localhost:3000', 
-		// credentials: true 
-	)
+		credentials: true 
+	})
 );
 
 app.set('trust proxy', 1); 
