@@ -23,8 +23,7 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
 	cors({ 
@@ -45,17 +44,17 @@ app.set('trust proxy', 1);
 
 app.use(
 	session({
-		secret: "secretcode",
+		secret: "session",
 		resave: true,
 		saveUninitialized: true,
     cookie: {
 			sameSite: "none",
 			secure: true,
-			maxAge: 1000 * 60 * 60 * 24  // One Day
+			maxAge: 1000 * 60 * 60 * 24 * 7  // One Week
 		} 
 }));
 
-app.use(cookieParser('secretcode'));
+app.use(cookieParser('session'));
 
 app.use(passport.initialize());
 app.use(passport.session());
