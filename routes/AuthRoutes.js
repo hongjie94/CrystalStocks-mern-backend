@@ -50,13 +50,13 @@ router.post("/register", (req, res) => {
 
 // Local Login
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", (err, user) => {
     if (err) throw err;
     if (!user) res.send("No User Exists");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send("Successfully Authenticated");
+        res.redirect('https://crystalstocks.netlify.app/history');
       });
     }
   })(req, res, next);
