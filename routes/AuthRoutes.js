@@ -84,7 +84,7 @@ router.get("/getuser", (req, res) => {
     return res.send(sendData);
   }
   if (!req.user) {
-    return res.send('get user data fail');
+    return res.send('get user data fail!');
   }
 });
 
