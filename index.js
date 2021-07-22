@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import MongoStore from 'connect-mongo';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
@@ -34,7 +35,7 @@ app.use(
 		secret: "secretcode",
 		resave: true,
 		saveUninitialized: true,
-		rolling:'true',
+		store: MongoStore.create({ mongoUrl: process.env.MONGO_URL}),
     cookie: {
 			httpOnly: true,
 			sameSite: 'none',
