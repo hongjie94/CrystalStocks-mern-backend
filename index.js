@@ -33,19 +33,20 @@ app.use(
 
 
 app.set('trust proxy', 1); 
+
 app.use(
 	session({
-		secret: "CrystalStocks",
+		secret: "secretcode",
 		resave: true,
 		saveUninitialized: true	,
     cookie: {
 			sameSite: 'none',
 			secure: true,
-			maxAge: 1000 * 60 * 60 * 24,  // One Day 
-			domain: '.gstatic.com'
+			maxAge: 1000 * 60 * 60 * 24  // One Day 
 		} 
 }));
-app.use(cookieParser('CrystalStocks'));
+
+app.use(cookieParser('secretcode'));
 ;
 
 app.use(passport.initialize());
