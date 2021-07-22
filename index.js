@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
@@ -34,20 +35,29 @@ app.use(
 
 app.set('trust proxy', 1); 
 
-app.use(
-	session({
-		secret: "secretcode",
-		resave: true,
-		saveUninitialized: true	,
-    cookie: {
-			sameSite: 'none',
-			secure: true,
-			maxAge: 1000 * 60 * 60 * 24  // One Day 
-		} 
+app.use(cookieSession({
+  name: 'session',
+	keys: ['key1', 'key2'],
+	sameSite: 'none',
+	secure: true,
+	maxAge: 1000 * 60 * 60 * 24  // One Day 
 }));
+app.use(cookieParser());
 
-app.use(cookieParser('secretcode'));
-;
+// app.use(
+// 	session({
+// 		secret: "secretcode",
+// 		resave: true,
+// 		saveUninitialized: true	,
+//     cookie: {
+// 			sameSite: 'none',
+// 			secure: true,
+// 			maxAge: 1000 * 60 * 60 * 24  // One Day 
+// 		} 
+// }));
+
+// app.use(cookieParser('secretcode'));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
