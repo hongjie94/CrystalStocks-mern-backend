@@ -49,7 +49,7 @@ app.use(
 		saveUninitialized: true	,
     cookie: {
 			sameSite: 'none',
-			secure: true,
+			secure: 'auto',
     	maxAge: 1000 * 60 * 60 * 24  // One Day 
 		} 
 }));
