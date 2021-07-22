@@ -25,11 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({
-		origin: /netlify\.app$/, 
+		origin:'https://crystalstocks.netlify.app', 
 		// // origin:'http://localhost:3000', 
 		credentials: true 
 	})
 );
+
+
+app.set('trust proxy', 1); 
 
 app.use(function(req, res, next) {
 	res.set('credentials', 'include');
@@ -39,8 +42,6 @@ app.use(function(req, res, next) {
 	res.set('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
 	next();
 });
-
-app.set('trust proxy', 1); 
 
 app.use(
 	session({
