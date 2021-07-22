@@ -33,16 +33,6 @@ app.use(
 
 
 app.set('trust proxy', 1); 
-
-app.use(function(req, res, next) {
-	res.set('credentials', 'include');
-	res.set('Access-Control-Allow-Credentials', true);
-	res.set('Access-Control-Allow-Origin', req.headers.origin);
-	res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.set('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-	next();
-});
-
 app.use(
 	session({
 		secret: "CrystalStocks",
@@ -54,8 +44,16 @@ app.use(
 			maxAge: 1000 * 60 * 60 * 24 // One Day 
 		} 
 }));
-
 app.use(cookieParser('CrystalStocks'));
+
+app.use( (req, res, next) => {
+	res.set('credentials', 'include');
+	res.set('Access-Control-Allow-Credentials', true);
+	res.set('Access-Control-Allow-Origin', req.headers.origin);
+	res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.set('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+	next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
