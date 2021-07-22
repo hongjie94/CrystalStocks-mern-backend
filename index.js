@@ -22,7 +22,7 @@ dotenv.config();
 
 // -------------------- Middleware --------------------
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
 	cors({ 
@@ -47,10 +47,9 @@ app.use(
 		resave: false,
 		saveUninitialized: true,
     cookie: {
-			keys: ['key1', 'key2'],
 			sameSite: "none",
 			secure: true,
-			maxAge: 1000 * 60 * 60 * 24 * 7  // One Week
+    	maxAge: 60000  
 		} 
 }));
 
