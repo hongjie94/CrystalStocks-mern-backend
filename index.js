@@ -42,7 +42,6 @@ app.use(
 			ttl: 2 * 24 * 60 * 60 // = 2 days
 		}),
     cookie: {
-			httpOnly: true,
 			sameSite: 'none',
 			secure: true,
 			maxAge: 1000 * 60 * 60 * 24  // One Day 
