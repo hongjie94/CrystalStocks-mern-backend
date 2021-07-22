@@ -50,8 +50,7 @@ app.use(
     cookie: {
 			sameSite: 'none',
 			secure: true,
-			maxAge: 1000 * 60 * 60 * 24,  // One Day 
-			domain: 'crystalstocks.netlify.app' 
+			maxAge: 1000 * 60 * 60 * 24 // One Day 
 		} 
 }));
 
