@@ -48,8 +48,8 @@ app.use(
 		resave: true,
 		saveUninitialized: true	,
     cookie: {
-			sameSite: 'none',
-			secure: 'auto',
+			sameSite: 'lax',
+			secure: true,
     	maxAge: 1000 * 60 * 60 * 24  // One Day 
 		} 
 }));
