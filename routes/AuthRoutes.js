@@ -71,7 +71,6 @@ router.get("/logout", (req, res) => {
 
 // Get user data
 router.get("/getuser", (req, res) => {
-  console.log(req.user);
   if (req.user) {
     const sendData = {
       id: req.user._id,
